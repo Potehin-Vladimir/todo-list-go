@@ -23,6 +23,14 @@ type Task struct {
 	IsCompleted bool
 }
 
+func (t *Task) Complete() {
+	t.IsCompleted = true
+}
+
+func (t *Task) UnComplete() {
+	t.IsCompleted = false
+}
+
 type TaskOption func(*Task)
 
 func WithPriority(p int) TaskOption {
@@ -45,12 +53,14 @@ func WithDueDate(d time.Time) TaskOption {
 
 func NewTask(title string, userID int64, opts ...TaskOption) *Task {
 	task := &Task{
-		ID:          getNextID(),
-		UserID:      userID,
-		Title:       title,
-		Priority:    1,
-		CreatedAt:   time.Now(),
+		ID:       getNextID(),
+		UserID:   userID,
+		Title:    title,
+		Priority: 1,
+
 		IsCompleted: false,
+		CreatedAt:   time.Now(),
+		DueDate:     nil,
 	}
 
 	for _, opt := range opts {
