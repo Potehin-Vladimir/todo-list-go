@@ -3,13 +3,13 @@ package models
 import "time"
 
 type Task struct {
-	ID          int
+	ID          int64
+	UserID      int64
 	Title       string
 	Description string
 	Priority    int
 
 	CreatedAt   time.Time
-	ExpiredAt   time.Time
-	DueDate     time.Time
+	DueDate     *time.Time
 	IsCompleted bool
 }
